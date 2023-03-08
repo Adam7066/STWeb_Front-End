@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^2.2.35",
     "vite-plugin-windicss": "^1.8.10",
     "vue": "^3.2.45",
     "windicss": "^3.5.6"
