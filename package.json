@@ -12,8 +12,10 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*": [
-      "pnpm lint --fix",
+    "*.{ts,js,vue}": [
+      "pnpm lint --fix"
+    ],
+    "*.{html,scss,css,vue}": [
       "pnpm prettier"
     ]
   },
