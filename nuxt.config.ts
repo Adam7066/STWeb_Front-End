@@ -4,5 +4,8 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', 'tdesign-vue-next/es/nuxt'],
+  build: {
+    transpile: ['tdesign-vue-next'],
+  },
 })
