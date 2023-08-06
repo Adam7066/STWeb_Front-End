@@ -7,10 +7,15 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prettier": "prettier --check \"**/*.{js,ts,json}\"",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,json}\""
+    "lint": "eslint . --ext .js,.ts,.vue",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*": [
+      "pnpm lint --fix",
+      "pnpm prettier"
+    ]
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -21,6 +26,8 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-vue": "^9.16.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
     "nuxt": "^3.6.5",
     "prettier": "^3.0.1",
     "prettier-plugin-tailwindcss": "^0.4.1",
