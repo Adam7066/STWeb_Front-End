@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     'tdesign-vue-next/es/nuxt',
     'nuxt-lodash',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
     '@nuxt/image',
   ],
   build: {
