@@ -1,8 +1,13 @@
-name: CI / Check
+name: Check
 
 on:
   push:
-    branches: [ 'develop', 'main' ]
+    branches: [ 'develop' ]
+  workflow_call:
+
+env:
+  NODE_VERSION: 18.x
+  PNPM_VERSION: 8.7.0
 
 jobs:
   check:
@@ -15,12 +20,12 @@ jobs:
       - name: Install node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
           run_install: false
 
       - name: Get pnpm store directory
