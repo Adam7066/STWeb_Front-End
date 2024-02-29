@@ -12,7 +12,7 @@ env:
 jobs:
   check:
     name: ESLint and Prettier
-    runs-on: [ self-hosted, Linux, x64 ]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
