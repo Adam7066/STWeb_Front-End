@@ -1,0 +1,84 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ 'main' ]
+
+env:
+  NODE_VERSION: 18.x
+  PNPM_VERSION: 8.7.0
+
+jobs:
+  call-workflow-check:
+    uses: ./.github/workflows/check.yaml
+
+  build:
+    name: Build
+    needs: call-workflow-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          install: true
+          platforms: linux/amd64
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: "stweb/frontend:latest"
+          load: true
+          platforms: linux/amd64
+
+      - name: Save Docker Image
+        run: |
+          docker save "stweb/frontend:latest" -o "frontend.tar"
+      
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "./frontend.tar ./docker-compose.yaml"
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: ""
+          SCRIPT_BEFORE: |
+            cd ${{ secrets.REMOTE_TARGET }}
+            [[ -f docker-compose.yaml ]] && docker-compose down
+          SCRIPT_AFTER: |
+            cd ${{ secrets.REMOTE_TARGET }}
+            docker load -i ./frontend.tar
+            docker-compose up -d
