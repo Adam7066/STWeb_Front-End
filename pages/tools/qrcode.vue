@@ -1,18 +1,18 @@
 <template>
-  <div class="mt-24 flex justify-center">
-    <t-card :header-bordered="true" class="w-1/2">
+  <div class="my-14 flex justify-center lg:my-24">
+    <t-card :header-bordered="true" class="!mx-4 w-full lg:w-2/3 xl:w-1/2">
       <template #title>
         <div class="text-xl font-semibold">QRCode 產生器</div>
       </template>
 
-      <div class="flex min-h-[248px] items-center">
-        <div class="flex w-2/3 flex-col space-y-6">
+      <div class="flex min-h-[248px] flex-col items-center sm:flex-row">
+        <div class="flex w-full flex-col space-y-6 sm:w-2/3">
           <div class="flex">
-            <div class="mr-4 text-lg font-medium">文字內容</div>
+            <div class="mr-4 font-medium sm:text-lg">文字內容</div>
             <t-input v-model="textInput" class="!w-80" placeholder="請輸入文字內容" />
           </div>
           <div class="flex">
-            <div class="mr-4 text-lg font-medium">容錯率</div>
+            <div class="mr-4 font-medium sm:text-lg">容錯率</div>
             <t-radio-group default-value="medium" @change="radioOnChange">
               <t-radio-button value="low">low</t-radio-button>
               <t-radio-button value="medium">medium</t-radio-button>
@@ -21,11 +21,11 @@
             </t-radio-group>
           </div>
           <div class="flex">
-            <div class="mr-4 text-lg font-medium">Mask Pattern</div>
+            <div class="mr-4 font-medium sm:text-lg">Mask Pattern</div>
             <t-input-number v-model="mask" :max="7" :min="0" />
           </div>
           <div class="flex">
-            <div class="mr-4 text-lg font-medium">背景色</div>
+            <div class="mr-4 font-medium sm:text-lg">背景色</div>
             <t-color-picker
               v-model="color"
               :show-primary-color-preview="false"
@@ -34,6 +34,7 @@
             />
           </div>
         </div>
+
         <div v-if="textInput" class="m-auto flex flex-col items-center">
           <div class="min-h-[200px]">
             <VueQrcode :options="qrcodeOptions" :value="textInput" />
