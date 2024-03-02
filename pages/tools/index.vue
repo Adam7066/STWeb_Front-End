@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-14 flex items-center justify-center">
+  <div class="my-14 flex items-center justify-center">
     <t-row :gutter="[30, 30]" class="mx-auto w-4/5">
-      <t-col v-for="(tool, index) in tools" :key="index" :span="4">
-        <t-card header-bordered class="w-full">
+      <t-col v-for="(tool, index) in tools" :key="index" class="w-full" :xs="12" :sm="6" :md="4">
+        <t-card :header-bordered="true" class="w-full">
           <template #header>
             <div class="text-xl font-medium">{{ tool.name }}</div>
-            <t-button variant="dashed" theme="primary" ghost>
+            <t-button variant="dashed" theme="primary" :ghost="true">
               <NuxtLink v-if="tool.path === '/tools'">Coming soon</NuxtLink>
               <NuxtLink v-else :to="tool.path">前往</NuxtLink>
             </t-button>

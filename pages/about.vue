@@ -1,6 +1,6 @@
 <template>
   <div class="mt-14 flex flex-col items-center justify-center">
-    <t-card header-bordered hover-shadow class="w-4/5 max-w-5xl">
+    <t-card :header-bordered="true" :hover-shadow="true" class="w-4/5 max-w-5xl">
       <template #header>
         <div class="text-2xl font-medium">Whoami</div>
       </template>
