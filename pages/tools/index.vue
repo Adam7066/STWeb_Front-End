@@ -25,12 +25,17 @@ const tools = [
   {
     name: 'QRCode 產生器',
     path: '/tools/qrcode',
-    description: '這個工具可以幫你產生 QRCode 並且下載成圖檔',
+    description: '產生 QRCode 並且下載成圖檔',
   },
   {
     name: '短網址',
     path: '/tools',
     description: '短網址服務',
+  },
+  {
+    name: '股票計算機',
+    path: '/tools/stockCal',
+    description: '快速計算股票交易的成本與報酬',
   },
 ]
 </script>
