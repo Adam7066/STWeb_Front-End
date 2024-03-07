@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  site: {
+    url: 'https://smallten.me',
+  },
   app: {
     head: {
       charset: 'utf-8',
@@ -18,6 +21,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxt/image',
     '@vueuse/nuxt',
+    '@nuxtjs/sitemap',
   ],
   build: {
     transpile: ['tdesign-vue-next'],
