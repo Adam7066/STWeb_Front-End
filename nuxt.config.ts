@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   site: {
     url: 'https://smallten.me',
   },
+  routeRules: {
+    '/api/shortUrl/**': {
+      proxy: { to: process.env.SHORT_URL_API },
+    },
+  },
   app: {
     head: {
       charset: 'utf-8',
@@ -28,5 +33,10 @@ export default defineNuxtConfig({
   },
   pinia: {
     autoImports: ['defineStore'],
+  },
+  runtimeConfig: {
+    public: {
+      shortUrlApi: process.env.SHORT_URL_API,
+    },
   },
 })
