@@ -29,7 +29,7 @@ const tools = [
   },
   {
     name: '短網址',
-    path: '/tools',
+    path: '/tools/shortUrl',
     description: '短網址服務',
   },
   {
