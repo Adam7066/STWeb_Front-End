@@ -48,7 +48,7 @@ const runtimeConfig = useRuntimeConfig()
 const { copy } = useClipboard()
 
 const formData = reactive({
-  url: 'https://blog.smallten.me',
+  url: '',
   account: 'smallten',
   passcode: '',
 })
