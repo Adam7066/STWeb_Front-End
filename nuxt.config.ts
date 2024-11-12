@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/tailwindcss',
-    'tdesign-vue-next/es/nuxt',
+    '@tdesign-vue-next/nuxt',
     'nuxt-lodash',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',

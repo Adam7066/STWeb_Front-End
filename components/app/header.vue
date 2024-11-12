@@ -1,5 +1,5 @@
 <template>
-  <t-head-menu theme="light" class="drop-shadow">
+  <t-head-menu theme="light" class="drop-shadow" :value="headMenuVal" @change="headMenuChange">
     <template #logo>
       <img class="ml-8 h-12 w-12" src="@/assets/images/logo.png" alt="logo" />
     </template>
@@ -29,16 +29,26 @@
 </template>
 
 <script setup lang="ts">
-import { type DropdownProps } from 'tdesign-vue-next'
+import { type DropdownProps, type MenuValue } from 'tdesign-vue-next'
 import { BookmarkIcon, LogoGithubFilledIcon, MenuApplicationIcon } from 'tdesign-icons-vue-next'
 
 const router = useRouter()
 
+const headMenuVal = ref('')
+
+onMounted(() => {
+  headMenuVal.value = useRoute().name?.toString() ?? ''
+})
+
 const menu = [
-  { value: 'home', to: '/', content: '首頁' },
-  { value: 'about', to: '/about', content: '關於我' },
-  { value: 'tools', to: '/tools', content: '小工具' },
+  { value: 'index', to: { path: '/' }, content: '首頁' },
+  { value: 'about', to: { path: '/about' }, content: '關於我' },
+  { value: 'tools', to: { path: '/tools' }, content: '小工具' },
 ]
+
+const headMenuChange = (value: MenuValue) => {
+  headMenuVal.value = value.toString()
+}
 
 const clickHandler: DropdownProps['onClick'] = (data) => {
   router.push(data.to)
