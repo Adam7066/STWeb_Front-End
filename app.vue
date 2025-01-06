@@ -8,9 +8,10 @@
 
 <script setup lang="ts">
 import merge from 'lodash/merge'
-import enConfig from 'tdesign-vue-next/es/locale/zh_TW'
+import zhTWConfig from 'tdesign-vue-next/es/locale/zh_TW'
+import type { GlobalConfigProvider } from 'tdesign-vue-next'
 
-const globalConfig = merge(enConfig)
+const globalConfig: GlobalConfigProvider = merge(zhTWConfig)
 
 useHead({
   title: '小十的家',

@@ -107,13 +107,13 @@ const discount = computed(() => {
 })
 
 const buyCost = computed(() => {
-  const cost = shares.value * formData.buyPrice ?? 0
+  const cost = shares.value * formData.buyPrice
   const handlingFee = Math.max(Math.floor(cost * 0.001425 * discount.value), formData.discountMin)
   return Math.round((cost + handlingFee) * 100) / 100
 })
 
 const income = computed(() => {
-  const income = shares.value * formData.sellPrice ?? 0
+  const income = shares.value * formData.sellPrice
   const handlingFee = Math.max(Math.floor(income * 0.001425 * discount.value), formData.discountMin)
   const tax = Math.max(Math.floor(formData.tax === 1 ? income * 0.003 : income * 0.001), 1)
   return Math.round((income - handlingFee - tax) * 100) / 100
