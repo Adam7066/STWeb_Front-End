@@ -14,7 +14,10 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
     },
   },
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+    componentInspector: false,
+  },
   typescript: {
     typeCheck: true,
   },
@@ -23,16 +26,14 @@ export default defineNuxtConfig({
     '@tdesign-vue-next/nuxt',
     'nuxt-lodash',
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
     '@nuxt/image',
     '@vueuse/nuxt',
     '@nuxtjs/sitemap',
+    '@nuxt/eslint',
   ],
   build: {
     transpile: ['tdesign-vue-next'],
-  },
-  pinia: {
-    autoImports: ['defineStore'],
   },
   runtimeConfig: {
     public: {

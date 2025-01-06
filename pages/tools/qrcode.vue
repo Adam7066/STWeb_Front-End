@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { type RadioGroupProps } from 'tdesign-vue-next'
+import type { RadioGroupProps } from 'tdesign-vue-next'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
 
 const textInput = ref('')

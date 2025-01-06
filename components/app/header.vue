@@ -1,7 +1,7 @@
 <template>
   <t-head-menu theme="light" class="drop-shadow" :value="headMenuVal" @change="headMenuChange">
     <template #logo>
-      <img class="ml-8 h-12 w-12" src="@/assets/images/logo.png" alt="logo" />
+      <img class="ml-8 size-12" src="@/assets/images/logo.png" alt="logo">
     </template>
 
     <div v-for="item in menu" :key="item.value" class="hidden sm:block">
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { type DropdownProps, type MenuValue } from 'tdesign-vue-next'
+import type { DropdownProps, MenuValue } from 'tdesign-vue-next'
 import { BookmarkIcon, LogoGithubFilledIcon, MenuApplicationIcon } from 'tdesign-icons-vue-next'
 
 const router = useRouter()
