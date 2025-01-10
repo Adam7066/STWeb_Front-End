@@ -1,15 +1,113 @@
 <template>
-  <div class="mt-14 flex flex-col items-center justify-center">
-    <t-card :header-bordered="true" :hover-shadow="true" class="w-4/5 max-w-5xl">
-      <template #header>
-        <div class="text-2xl font-medium">Whoami</div>
-      </template>
-      <div class="ml-8 text-xl">
-        <div>名稱：Adam7066 / Smallten</div>
-        <div>簡介：目前為一名資工系學生</div>
+  <div class="my-14 flex flex-col items-center justify-center space-y-10">
+    <div class="flex w-3/5 flex-col lg:flex-row">
+      <div class="flex flex-col items-center lg:mb-0">
+        <div class="w-36">
+          <div class="text-3xl text-red-500">About us</div>
+          <div class="mt-4 text-3xl font-medium">團隊簡介</div>
+        </div>
       </div>
-    </t-card>
+
+      <div class="mx-2 hidden lg:block">
+        <t-divider layout="vertical" class="!h-full !border-2" />
+      </div>
+      <div class="lg:hidden">
+        <t-divider class="!w-full !border-2" />
+      </div>
+
+      <div class="py-4 text-base">
+        <p>
+          憑藉著一股對於科技、教育的熱情，我們幾個志同道合的夥伴組成了這個團隊，
+          並致力於打造一個集教育、學習資源、實用工具於一體的平台，讓學習變得更簡單、更有趣。
+        </p>
+        <br>
+        並且我們始終堅持「開源」、「免費」的理念，為每一位使用者提供無門檻的學習環境。
+        <br><br>
+        【 對學生 】
+        <br>
+        我們撰寫了各式各樣的教學文章、提供考古題下載、開發了許多實用小工具...
+        <br><br>
+        【 對老師 】
+        <br>
+        我們也準備了許多的教學資源，例如：講義、投影片、Online Judge...
+        <br><br>
+        <div class="text-blue-600">
+          展望未來，【 小十科技 】在教育平台中，不一定要成為第一，但一定能夠越做越好!!
+        </div>
+      </div>
+    </div>
+
+    <div class="w-4/5">
+      <div class="mb-4 text-center text-3xl font-medium">團隊成員</div>
+      <t-row :gutter="30" class="flex" justify="space-around">
+        <t-col v-for="member in members" :key="member.name" :xs="12" :sm="6" :md="4">
+          <div class="my-4">
+            <t-card :header-bordered="true" :hover-shadow="true" class="w-full">
+              <template #header>
+                <t-avatar :image="member.avatar" />
+                <div class="text-xl font-medium">{{ member.name }}</div>
+              </template>
+
+              <div class="w-full">
+                <div class="text-base">{{ member.description }}</div>
+                <t-divider />
+                <div class="flex justify-around">
+                  <t-tooltip content="Github">
+                    <NuxtLink :to="member.urlGithub" target="_blank">
+                      <LogoGithubFilledIcon size="2em" />
+                    </NuxtLink>
+                  </t-tooltip>
+                  <t-tooltip content="Blog">
+                    <NuxtLink :to="member.urlBlog" target="_blank">
+                      <PenFilledIcon size="2em" />
+                    </NuxtLink>
+                  </t-tooltip>
+                </div>
+              </div>
+
+            </t-card>
+          </div>
+        </t-col>
+      </t-row>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { LogoGithubFilledIcon, PenFilledIcon } from 'tdesign-icons-vue-next'
+
+const config = useRuntimeConfig()
+
+interface MemberData {
+  avatar: string
+  name: string
+  description: string
+  urlGithub: string
+  urlBlog: string
+}
+
+interface MembersData {
+  error: string
+  data: MemberData[]
+}
+
+const members = ref([]) as Ref<MemberData[]>
+
+const fetchMembers = async () => {
+  const { data } = await useFetch<MembersData>(config.public.backendApi + '/members', {
+    method: 'GET',
+  })
+  if (data.value) {
+    console.log(data.value)
+    if (data.value.error) return
+    data.value.data.forEach((member: MemberData) => {
+      members.value.push(member)
+    })
+  }
+}
+
+onMounted(async () => {
+  await nextTick()
+  await fetchMembers()
+})
+</script>

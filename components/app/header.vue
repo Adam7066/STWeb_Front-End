@@ -43,7 +43,7 @@ onMounted(() => {
 
 const menu = [
   { value: 'index', to: { path: '/' }, content: '首頁' },
-  { value: 'about', to: { path: '/about' }, content: '關於我' },
+  { value: 'about', to: { path: '/about' }, content: '關於' },
   { value: 'tools', to: { path: '/tools' }, content: '小工具' },
 ]
 
