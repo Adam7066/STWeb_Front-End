@@ -64,7 +64,6 @@
                   </t-tooltip>
                 </div>
               </div>
-
             </t-card>
           </div>
         </t-col>
@@ -91,23 +90,12 @@ interface MembersData {
   data: MemberData[]
 }
 
-const members = ref([]) as Ref<MemberData[]>
+const { data } = await useFetch<MembersData>(config.public.backendApi + '/members', {
+  method: 'GET',
+})
 
-const fetchMembers = async () => {
-  const { data } = await useFetch<MembersData>(config.public.backendApi + '/members', {
-    method: 'GET',
-  })
-  if (data.value) {
-    console.log(data.value)
-    if (data.value.error) return
-    data.value.data.forEach((member: MemberData) => {
-      members.value.push(member)
-    })
-  }
-}
-
-onMounted(async () => {
-  await nextTick()
-  await fetchMembers()
+const members = computed(() => {
+  if (data.value) return data.value.data
+  return [] as MemberData[]
 })
 </script>
