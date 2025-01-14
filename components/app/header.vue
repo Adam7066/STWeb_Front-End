@@ -4,24 +4,35 @@
       <img class="ml-8 size-12" src="@/assets/images/logo.png" alt="logo">
     </template>
 
-    <div v-for="item in menu" :key="item.value" class="hidden sm:block">
-      <t-menu-item :value="item.value" class="text-2xl" :to="item.to">
+    <div v-for="(item, number) in menu" :key="item.value" class="hidden lg:block">
+      <t-menu-item v-if="number<leftMenuItemCnt" :value="item.value" class="text-2xl" :to="item.to">
         {{ item.content }}
       </t-menu-item>
     </div>
 
     <template #operations>
       <t-space class="mr-8" :size="25">
-        <NuxtLink to="https://blog.smallten.me/" target="_blank">
-          <BookmarkIcon size="2em" />
-        </NuxtLink>
-        <NuxtLink to="https://github.com/Adam7066" target="_blank">
-          <LogoGithubFilledIcon size="2em" />
-        </NuxtLink>
-        <div class="block sm:hidden">
-          <t-dropdown :options="menu" @click="clickHandler">
-            <MenuApplicationIcon size="2em" />
-          </t-dropdown>
+        <div v-for="(item, number) in menu" :key="item.value" class="hidden lg:block">
+          <t-menu-item v-if="number >= leftMenuItemCnt" :value="item.value" class="text-2xl" :to="item.to">
+            {{ item.content }}
+          </t-menu-item>
+        </div>
+        <div class="block lg:hidden">
+          <t-popup :destroy-on-close="true" trigger="click">
+            <BulletpointIcon size="2em" />
+            <template #content>
+              <t-menu :value="headMenuVal">
+                <div v-for="item in menu" :key="item.value">
+                  <t-menu-item :value="item.value" class="text-lg !text-black" :to="item.to">
+                    <template #icon>
+                      <t-icon :name="item.icon" class="mr-3" />
+                    </template>
+                    {{ item.content }}
+                  </t-menu-item>
+                </div>
+              </t-menu>
+            </template>
+          </t-popup>
         </div>
       </t-space>
     </template>
@@ -29,10 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DropdownProps } from 'tdesign-vue-next'
-import { BookmarkIcon, LogoGithubFilledIcon, MenuApplicationIcon } from 'tdesign-icons-vue-next'
-
-const router = useRouter()
+import { BulletpointIcon } from 'tdesign-icons-vue-next'
 
 const headMenuVal = ref('')
 
@@ -41,13 +49,11 @@ onMounted(() => {
   headMenuVal.value = curRoute.split('-')[0]
 })
 
+const leftMenuItemCnt = 3
 const menu = [
-  { value: 'index', to: { path: '/' }, content: '首頁' },
-  { value: 'about', to: { path: '/about' }, content: '關於' },
-  { value: 'tools', to: { path: '/tools' }, content: '小工具' },
+  { value: 'index', to: { path: '/' }, content: '首頁', icon: 'home' },
+  { value: 'about', to: { path: '/about' }, content: '關於', icon: 'usergroup' },
+  { value: 'tools', to: { path: '/tools' }, content: '小工具', icon: 'tools' },
+  { value: 'login', to: { path: '/login' }, content: '登入', icon: 'login' },
 ]
-
-const clickHandler: DropdownProps['onClick'] = (data) => {
-  router.push(data.to)
-}
 </script>
