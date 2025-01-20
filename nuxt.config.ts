@@ -38,6 +38,10 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
 
+  pinia: {
+    storesDirs: ['./stores/**'],
+  },
+
   build: {
     transpile: ['tdesign-vue-next'],
   },
