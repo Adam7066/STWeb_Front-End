@@ -9,10 +9,10 @@
     >
       <t-form-item name="email">
         <template #label>
-          <div class="text-lg">電子郵件地址</div>
+          <div class="text-lg">電子信箱</div>
         </template>
         <t-auto-complete v-model="formData.email" :options="emailOptions" :filterable="true">
-          <t-input v-model="formData.email" :clearable="true" placeholder="請輸入 電子郵件地址">
+          <t-input v-model="formData.email" :clearable="true" placeholder="請輸入 電子信箱">
             <template #prefix-icon>
               <MailIcon />
             </template>
@@ -43,6 +43,7 @@ import { MessagePlugin, type FormProps } from 'tdesign-vue-next'
 import { MailIcon, LockOnIcon } from 'tdesign-icons-vue-next'
 
 const config = useRuntimeConfig()
+const userStore = useUser()
 
 const formData: FormProps['data'] = reactive({
   email: '',
@@ -69,8 +70,7 @@ interface LoginResData {
   data: {
     username: string
     email: string
-    aToken: string
-    rToken: string
+    avatar: string
   }
 }
 
@@ -81,10 +81,19 @@ const login: FormProps['onSubmit'] = async ({ validateResult, firstError, e }) =
     const resp = await $fetch<LoginResData>(config.public.backendApi + '/login', {
       method: 'POST',
       body: JSON.stringify(formData),
+      credentials: 'include',
     })
     if (resp.error) await MessagePlugin.error(resp.error)
     else if (!resp.data) await MessagePlugin.error('請確認電子郵件地址或密碼')
-    else await MessagePlugin.success('登入成功')
+    else {
+      userStore.setUsername(resp.data.username)
+      userStore.setEmail(resp.data.email)
+      userStore.setAvatar(resp.data.avatar)
+      const isLoggedIn = useState<boolean>('isLoggedIn')
+      isLoggedIn.value = true
+      await MessagePlugin.success('登入成功')
+      await navigateTo('/', { replace: true })
+    }
   } else if (firstError) {
     await MessagePlugin.error(firstError)
   }
