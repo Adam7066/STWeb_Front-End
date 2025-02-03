@@ -3,14 +3,12 @@ export const useUser = defineStore('user', {
     username: '',
     email: '',
     avatar: '',
-    isLoggedIn: false,
   }),
   actions: {
     init() {
       this.username = ''
       this.email = ''
       this.avatar = ''
-      this.isLoggedIn = false
     },
     setUsername(username: string) {
       this.username = username
@@ -20,9 +18,6 @@ export const useUser = defineStore('user', {
     },
     setAvatar(avatar: string) {
       this.avatar = avatar
-    },
-    setIsLoggedIn(isLoggedIn: boolean) {
-      this.isLoggedIn = isLoggedIn
     },
   },
   persist: {

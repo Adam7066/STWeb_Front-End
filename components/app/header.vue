@@ -12,16 +12,16 @@
     </div>
 
     <template #operations>
-      <div class="mr-8 flex items-center justify-center">
-        <!-- Desktop Right Menu -->
-        <div v-for="item in menu[1]" :key="item.value" class="hidden lg:block">
-          <t-menu-item v-if="item.visible" :value="item.value" class="text-2xl" @click="goTo(item.to)">
-            {{ item.content }}
-          </t-menu-item>
-        </div>
+      <client-only>
+        <div class="mr-8 flex items-center justify-center">
+          <!-- Desktop Right Menu -->
+          <div v-for="item in menu[1]" :key="item.value" class="hidden lg:block">
+            <t-menu-item v-if="item.visible" :value="item.value" class="text-2xl" @click="goTo(item.to)">
+              {{ item.content }}
+            </t-menu-item>
+          </div>
 
-        <client-only v-if="userStore.isLoggedIn">
-          <div class="hidden lg:flex lg:items-center lg:justify-center">
+          <div v-if="isLoggedIn" class="hidden lg:flex lg:items-center lg:justify-center">
             <t-popup :destroy-on-close="true" trigger="click">
               <t-avatar :image="userStore.avatar" size="large" />
               <template #content>
@@ -46,46 +46,48 @@
               </template>
             </t-popup>
           </div>
-        </client-only>
 
-        <!-- Mobile -->
-        <div class="block lg:hidden">
-          <t-popup :destroy-on-close="true" trigger="click">
-            <BulletpointIcon size="2em" />
-            <template #content>
-              <t-menu :value="headMenuVal">
-                <div v-if="userStore.isLoggedIn" class="flex items-center">
-                  <t-avatar :image="userStore.avatar" />
-                  <div class="ml-4 truncate text-center text-lg">{{ userStore.username }}</div>
-                </div>
-                <t-divider v-if="userStore.isLoggedIn" class="!my-2" />
+          <!-- Mobile -->
+          <div class="block lg:hidden">
+            <t-popup :destroy-on-close="true" trigger="click">
+              <BulletpointIcon size="2em" />
+              <template #content>
+                <t-menu :value="headMenuVal">
+                  <div v-if="isLoggedIn" class="flex items-center">
+                    <t-avatar :image="userStore.avatar" />
+                    <div class="ml-4 truncate text-center text-lg">{{ userStore.username }}</div>
+                  </div>
+                  <t-divider v-if="isLoggedIn" class="!my-2" />
 
-                <template v-for="(subMenu, index) in mobileMenu" :key="index">
-                  <template v-for="item in subMenu" :key="item.value">
-                    <t-menu-item :value="item.value" class="text-lg !text-black" @click="goTo(item.to)">
-                      <template #icon>
-                        <t-icon :name="item.icon" class="mr-3" />
-                      </template>
-                      {{ item.content }}
-                    </t-menu-item>
+                  <template v-for="(subMenu, index) in mobileMenu" :key="index">
+                    <template v-for="item in subMenu" :key="item.value">
+                      <t-menu-item :value="item.value" class="text-lg !text-black" @click="goTo(item.to)">
+                        <template #icon>
+                          <t-icon :name="item.icon" class="mr-3" />
+                        </template>
+                        {{ item.content }}
+                      </t-menu-item>
+                    </template>
+                    <t-divider v-if="index < mobileMenu.length - 1" class="!my-2" />
                   </template>
-                  <t-divider v-if="index < mobileMenu.length - 1" class="!my-2" />
-                </template>
-              </t-menu>
-            </template>
-          </t-popup>
+                </t-menu>
+              </template>
+            </t-popup>
+          </div>
         </div>
-      </div>
+      </client-only>
     </template>
   </t-head-menu>
 </template>
 
 <script setup lang="ts">
+import type { MenuProps } from 'tdesign-vue-next'
 import { BulletpointIcon } from 'tdesign-icons-vue-next'
 
 const userStore = useUser()
+const isLoggedIn = useState<boolean>('isLoggedIn')
 
-const headMenuVal = ref('')
+const headMenuVal = ref<MenuProps['value']>('')
 
 onMounted(() => {
   const curRoute = useRoute().name?.toString() ?? ''
@@ -99,14 +101,14 @@ const menu = [
     { value: 'tools', to: '/tools', content: '小工具', icon: 'tools', visible: true },
   ],
   [ // Right
-    { value: 'login', to: '/login', content: '登入', icon: 'login', visible: !userStore.isLoggedIn },
+    { value: 'login', to: '/login', content: '登入', icon: 'login', visible: !isLoggedIn.value },
   ],
   [ // Avatar Group 0
-    { value: 'dashboard', to: '/dashboard', content: '儀表板', icon: 'dashboard-1', visible: userStore.isLoggedIn },
-    { value: 'setting', to: '/setting', content: '設定', icon: 'setting-1', visible: userStore.isLoggedIn },
+    { value: 'dashboard', to: '/dashboard', content: '儀表板', icon: 'dashboard-1', visible: isLoggedIn.value },
+    { value: 'setting', to: '/setting', content: '設定', icon: 'setting-1', visible: isLoggedIn.value },
   ],
   [ // Avatar Group 1
-    { value: 'logout', to: '/logout', content: '登出', icon: 'logout', visible: userStore.isLoggedIn },
+    { value: 'logout', to: '/logout', content: '登出', icon: 'logout', visible: isLoggedIn.value },
   ],
 ]
 const avatarMenu = menu.slice(2)

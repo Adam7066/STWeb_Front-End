@@ -6,7 +6,7 @@
     <t-content class="bg-white pt-14">
       <slot />
     </t-content>
-    <t-footer class="!py-4">
+    <t-footer class="!flex !h-12 !items-center !justify-center !border-t">
       <AppFooter />
     </t-footer>
   </t-layout>
