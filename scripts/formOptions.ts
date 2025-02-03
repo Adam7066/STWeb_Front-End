@@ -1,0 +1,1 @@
+export const phoneCountryOptions = [{ label: 'Taiwan +886', value: '+886' }]

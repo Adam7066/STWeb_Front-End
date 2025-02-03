@@ -18,6 +18,7 @@ export default withNuxt(
     ],
     rules: {
       'vue/multi-word-component-names': 'off',
+      'vue/no-multiple-template-root': 'off',
 
       '@stylistic/indent': ['error', 2],
       '@stylistic/quotes': ['error', 'single'],
