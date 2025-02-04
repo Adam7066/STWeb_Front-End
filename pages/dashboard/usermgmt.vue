@@ -149,11 +149,11 @@ definePageMeta({
 const config = useRuntimeConfig()
 const userRole = useState<string>('userRole')
 
-const { data: getUsersResData, refresh } = await useFetch<GetUsersRes>(config.public.backendApi + '/users', {
+const { data: getUsersRes, refresh } = await useFetch<GetUsersRes>(config.public.backendApi + '/users', {
   method: 'GET',
   credentials: 'include',
 })
-const tableData = computed(() => getUsersResData.value ? getUsersResData.value.data : [] as UserData[])
+const tableData = computed(() => getUsersRes.value ? getUsersRes.value.data : [] as UserData[])
 
 const tableColumns = ref<TableProps['columns']>([
   { colKey: 'id', title: 'ID' },
@@ -226,12 +226,9 @@ const updateUserFormData: FormProps['data'] = reactive({
 })
 
 const showUpdateUserDialog = (row: UserData) => {
-  updateUserFormData.id = row.id
-  updateUserFormData.username = row.username
-  updateUserFormData.email = row.email
-  updateUserFormData.phoneCountry = row.phoneCountry
-  updateUserFormData.phoneNumber = row.phoneNumber
-  updateUserFormData.role = row.role
+  Object.keys(updateUserFormData).forEach((key) => {
+    updateUserFormData[key] = row[key as keyof UserData]
+  })
   updateUserVisible.value = true
 }
 

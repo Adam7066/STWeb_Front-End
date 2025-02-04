@@ -7,7 +7,7 @@
       <t-aside class="!w-fit border-r-2 border-t-2">
         <t-menu :value="menuValue" :collapsed="collapsed" @change="menuOnChange">
           <template v-for="item in menu" :key="item.value">
-            <t-menu-item :value="item.value" class="text-lg !text-black" :to="item.to">
+            <t-menu-item v-if="item.visible" :value="item.value" class="text-lg !text-black" :to="item.to">
               <template #icon>
                 <t-icon :name="item.icon" />
               </template>
@@ -40,6 +40,8 @@
 <script setup lang="ts">
 import type { ButtonProps, MenuProps } from 'tdesign-vue-next'
 
+const userRole = useState<string>('userRole')
+
 const menuValue = ref<MenuProps['value']>('dashboard')
 
 onMounted(() => {
@@ -53,8 +55,21 @@ onMounted(() => {
 })
 
 const menu = [
-  { value: 'dashboard', name: '儀表板', icon: 'dashboard', to: { path: '/dashboard' } },
-  { value: 'usermgmt', name: '使用者管理', icon: 'usergroup', to: { path: '/dashboard/usermgmt' } },
+  { value: 'dashboard', name: '儀表板', icon: 'dashboard', to: { path: '/dashboard' }, visible: true },
+  {
+    value: 'usermgmt',
+    name: '使用者管理',
+    icon: 'user-list',
+    to: { path: '/dashboard/usermgmt' },
+    visible: userRole.value !== 'User',
+  },
+  {
+    value: 'membermgmt',
+    name: '團隊成員管理',
+    icon: 'user-business',
+    to: { path: '/dashboard/membermgmt' },
+    visible: userRole.value !== 'User',
+  },
 ]
 const menuOnChange: MenuProps['onChange'] = (active) => {
   menuValue.value = active
