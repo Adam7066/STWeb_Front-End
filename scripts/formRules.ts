@@ -24,3 +24,10 @@ export const userFormRules: FormProps['rules'] = {
     { validator: passwordValidator, message: '格式錯誤', trigger: 'blur' },
   ],
 }
+
+export const memberFormRules: FormProps['rules'] = {
+  name: [{ required: true, message: '此項必填', type: 'error', trigger: 'blur' }],
+  description: [{ required: true, message: '此項必填', type: 'error', trigger: 'blur' }],
+  urlGithub: [{ url: true, message: '格式錯誤', type: 'error', trigger: 'blur' }],
+  urlBlog: [{ url: true, message: '格式錯誤', type: 'error', trigger: 'blur' }],
+}

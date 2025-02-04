@@ -50,14 +50,14 @@
 
               <div class="w-full">
                 <div class="text-base">{{ member.description }}</div>
-                <t-divider />
+                <t-divider v-if="member.urlGithub && member.urlBlog" />
                 <div class="flex justify-around">
-                  <t-tooltip content="Github">
+                  <t-tooltip v-if="member.urlGithub" content="Github">
                     <NuxtLink :to="member.urlGithub" target="_blank">
                       <LogoGithubFilledIcon size="2em" />
                     </NuxtLink>
                   </t-tooltip>
-                  <t-tooltip content="Blog">
+                  <t-tooltip v-if="member.urlBlog" content="Blog">
                     <NuxtLink :to="member.urlBlog" target="_blank">
                       <PenFilledIcon size="2em" />
                     </NuxtLink>

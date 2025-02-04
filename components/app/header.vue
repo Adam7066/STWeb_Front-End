@@ -104,7 +104,7 @@ const menu = [
     { value: 'login', to: '/login', content: '登入', icon: 'login', visible: !isLoggedIn.value },
   ],
   [ // Avatar Group 0
-    { value: 'dashboard', to: '/dashboard', content: '儀表板', icon: 'dashboard-1', visible: isLoggedIn.value },
+    { value: 'dashboard', to: '/dashboard', content: '儀表板', icon: 'dashboard', visible: isLoggedIn.value },
     { value: 'setting', to: '/setting', content: '設定', icon: 'setting-1', visible: isLoggedIn.value },
   ],
   [ // Avatar Group 1
