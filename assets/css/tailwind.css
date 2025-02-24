@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .prose {
+        @apply max-w-full;
+
+        code::before, code::after {
+            @apply content-none;
+        }
+
+        pre code {
+            counter-reset: step;
+            counter-increment: step 0;
+        }
+
+        pre code .line::before {
+            content: counter(step);
+            counter-increment: step;
+            @apply w-[1rem] mr-4 inline-block text-right text-gray-400 border-r px-4;
+        }
+
+        pre code .line {
+            @apply block;
+        }
+
+        pre code .line.highlight {
+            @apply bg-yellow-100;
+        }
+
+        h2, h3 {
+            a {
+                @apply no-underline;
+            }
+        }
+    }
+}

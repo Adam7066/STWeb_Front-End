@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   site: {
     url: 'https://smallten.me',
@@ -27,16 +26,50 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxt/eslint',
+    '@nuxt/icon',
+    '@nuxt/image',
+    '@nuxtjs/mdc',
+    '@nuxtjs/sitemap',
     '@nuxtjs/tailwindcss',
     '@tdesign-vue-next/nuxt',
     'nuxt-lodash',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
-    '@nuxt/image',
     '@vueuse/nuxt',
-    '@nuxtjs/sitemap',
-    '@nuxt/eslint',
   ],
+
+  mdc: {
+    remarkPlugins: {
+      'remark-math': {},
+    },
+    rehypePlugins: {
+      'rehype-katex': {},
+    },
+    headings: {
+      anchorLinks: { h4: false },
+    },
+    highlight: {
+      theme: {
+        default: 'github-light',
+        dark: 'github-dark',
+      },
+      langs: [
+        'c', 'cpp', 'go', 'js', 'typescript', 'vue', 'html', 'css', 'bash', 'md',
+        'yaml', 'json',
+      ],
+    },
+  },
+
+  icon: {
+    provider: 'server',
+    customCollections: [
+      {
+        prefix: 'my-icon',
+        dir: './assets/icons',
+      },
+    ],
+  },
 
   pinia: {
     storesDirs: ['./stores/**'],
