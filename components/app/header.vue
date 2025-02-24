@@ -6,7 +6,7 @@
     </template>
 
     <div v-for="item in menu[0]" :key="item.value" class="hidden lg:block">
-      <t-menu-item v-if="item.visible" :value="item.value" class="text-2xl" @click="goTo(item.to)">
+      <t-menu-item v-if="item.visible" :value="item.value" class="text-xl font-medium" @click="goTo(item.to)">
         {{ item.content }}
       </t-menu-item>
     </div>
@@ -16,7 +16,7 @@
         <div class="mr-8 flex items-center justify-center">
           <!-- Desktop Right Menu -->
           <div v-for="item in menu[1]" :key="item.value" class="hidden lg:block">
-            <t-menu-item v-if="item.visible" :value="item.value" class="text-2xl" @click="goTo(item.to)">
+            <t-menu-item v-if="item.visible" :value="item.value" class="text-xl font-medium" @click="goTo(item.to)">
               {{ item.content }}
             </t-menu-item>
           </div>
@@ -98,6 +98,7 @@ const menu = [
   [ // Left
     { value: 'index', to: '/', content: '首頁', icon: 'home', visible: true },
     { value: 'about', to: '/about', content: '關於', icon: 'usergroup', visible: true },
+    { value: 'learn', to: '/learn', content: '學習文章', icon: 'book', visible: true },
     { value: 'tools', to: '/tools', content: '小工具', icon: 'tools', visible: true },
   ],
   [ // Right

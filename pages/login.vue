@@ -4,7 +4,7 @@
 
     <t-form
       ref="form" label-align="top" :data="formData" :rules="formRules" :required-mark="false"
-      class="!w-full !max-w-[450px] rounded-md border border-gray-200 !p-6"
+      class="!w-full !max-w-[450px] rounded-md border border-gray-200 bg-white !p-6"
       @submit="login"
     >
       <t-form-item name="email">

@@ -1,43 +1,33 @@
 <template>
-  <t-layout class="min-h-screen">
-    <t-header>
-      <AppHeader :key="$route.name?.toString()" />
-    </t-header>
-    <t-layout class="pt-14">
-      <t-aside class="!w-fit border-r-2 border-t-2">
-        <t-menu :value="menuValue" :collapsed="collapsed" @change="menuOnChange">
-          <template v-for="item in menu" :key="item.value">
-            <t-menu-item v-if="item.visible" :value="item.value" class="text-lg !text-black" :to="item.to">
-              <template #icon>
-                <t-icon :name="item.icon" />
-              </template>
-              {{ item.name }}
-            </t-menu-item>
-          </template>
+  <AsideLayout>
+    <template #aside>
+      <t-menu :value="menuValue" :collapsed="collapsed" @change="menuOnChange">
+        <template v-for="item in menu" :key="item.value">
+          <t-menu-item v-if="item.visible" :value="item.value" class="text-lg !text-black" :to="item.to">
+            <template #icon>
+              <t-icon :name="item.icon" />
+            </template>
+            {{ item.name }}
+          </t-menu-item>
+        </template>
 
-          <template #operations>
-            <t-button variant="text" shape="square" @click="changeCollapsed">
-              <template #icon>
-                <t-icon :name="collapsedIconName" />
-              </template>
-            </t-button>
-          </template>
-        </t-menu>
-      </t-aside>
-
-      <t-layout>
-        <t-content class="bg-white">
-          <slot />
-        </t-content>
-        <t-footer class="!flex !h-12 !items-center !justify-center !border-t">
-          <AppFooter />
-        </t-footer>
-      </t-layout>
-    </t-layout>
-  </t-layout>
+        <template #operations>
+          <t-button variant="text" shape="square" @click="changeCollapsed">
+            <template #icon>
+              <t-icon :name="collapsedIconName" />
+            </template>
+          </t-button>
+        </template>
+      </t-menu>
+    </template>
+    <template #content>
+      <slot />
+    </template>
+  </AsideLayout>
 </template>
 
 <script setup lang="ts">
+import AsideLayout from './aside.vue'
 import type { ButtonProps, MenuProps } from 'tdesign-vue-next'
 
 const userRole = useState<string>('userRole')
