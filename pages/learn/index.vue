@@ -3,8 +3,24 @@
     <div class="flex w-full justify-between space-x-10">
       <t-space direction="vertical" class="flex-1">
         <div class="text-3xl font-semibold">最新文章</div>
-        <template v-for="i in 5" :key="i">
-          <t-card :hover-shadow="true" class="shadow-md">OAO</t-card>
+
+        <template v-for="i in learnLatest" :key="i.url">
+          <t-card :hover-shadow="true" class="shadow-md hover:cursor-pointer" @click="goToArticle(i.url)">
+            <t-space direction="vertical" size="small">
+              <t-tag theme="primary" variant="light" class="!text-sm !font-medium">{{ i.topic_name }}</t-tag>
+              <div class="text-xl font-medium">{{ i.title }}</div>
+              <t-space class="text-sm">
+                <t-tooltip content="最後編輯時間">
+                  <CalendarEditIcon class="mr-2 !size-4" />
+                  {{ new Date(i.updated_at).toLocaleDateString() }}
+                </t-tooltip>
+                <t-tooltip content="作者">
+                  <Icon name="my-icon:author" class="mr-2 size-4" />
+                  {{ i.author }}
+                </t-tooltip>
+              </t-space>
+            </t-space>
+          </t-card>
         </template>
       </t-space>
 
@@ -21,13 +37,15 @@
 </template>
 
 <script setup lang="ts">
-import type { LearnCategory } from '~/scripts/fetchInterface'
+import type { GetLearnLatestRes, LearnCategory, LearnLatest } from '~/scripts/fetchInterface'
+import { CalendarEditIcon } from 'tdesign-icons-vue-next'
 
 definePageMeta({
   middleware: 'learn-article-validator',
   layout: 'learn',
 })
 
+const config = useRuntimeConfig()
 const learnArticles = useState<Record<string, LearnCategory>>('learnArticles')
 
 const totalArticles = computed(() => {
@@ -37,4 +55,17 @@ const totalArticles = computed(() => {
     }, 0)
   }, 0)
 })
+
+const { data } = await useFetch<GetLearnLatestRes>(config.public.backendApi + '/learn/latest', {
+  method: 'GET',
+})
+
+const learnLatest = computed(() => {
+  if (data.value) return data.value.data
+  return [] as LearnLatest[]
+})
+
+const goToArticle = async (url: string) => {
+  await navigateTo({ path: url })
+}
 </script>

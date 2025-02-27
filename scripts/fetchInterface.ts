@@ -40,6 +40,14 @@ export interface LearnArticle {
   updated_at: Date
 }
 
+export interface LearnLatest {
+  topic_name: string
+  title: string
+  author: string
+  updated_at: Date
+  url: string
+}
+
 export type GetUserRes = ApiRes<UserData>
 export type GetUsersRes = ApiRes<UserData[]>
 export type DeleteUserRes = ApiRes<string>
@@ -53,3 +61,4 @@ export type CreateMemberRes = ApiRes<string>
 export type UpdateMemberRes = ApiRes<string>
 
 export type GetLearnArticlesRes = ApiRes<Record<string, LearnCategory>>
+export type GetLearnLatestRes = ApiRes<LearnLatest[]>
