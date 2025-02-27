@@ -1,7 +1,7 @@
 <template>
   <AsideLayout>
     <template #aside>
-      <t-menu :value="menuValue" :expand-mutex="true" @change="menuOnChange">
+      <t-menu :value="menuValue" :expand-mutex="true">
         <t-menu-item class="text-xl font-medium !text-black" value="learn" :to="{path: '/learn'}">
           最新文章
         </t-menu-item>
@@ -46,20 +46,13 @@ import type { LearnCategory } from '~/scripts/fetchInterface'
 
 const route = useRoute()
 
-const menuValue = ref<MenuProps['value']>('learn')
-
-onMounted(() => {
+const menuValue = computed<MenuProps['value']>(() => {
   const curRoute = route.name?.toString() ?? ''
   if (curRoute === 'learn-category-topic-id') {
-    menuValue.value = route.params.id as string
-  } else {
-    menuValue.value = 'learn'
+    return route.params.id as string
   }
+  return 'learn'
 })
 
 const learnArticles = useState<Record<string, LearnCategory>>('learnArticles')
-
-const menuOnChange: MenuProps['onChange'] = (active) => {
-  menuValue.value = active
-}
 </script>
