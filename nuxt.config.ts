@@ -85,4 +85,6 @@ export default defineNuxtConfig({
       backendApi: process.env.BACKEND_API,
     },
   },
+
+  compatibilityDate: '2025-02-26',
 })
