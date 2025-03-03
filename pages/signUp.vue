@@ -1,9 +1,114 @@
 <template>
-    <div>
-        sign up
+  <div class="flex w-full flex-col items-center justify-center">
+    <div class="my-14 flex w-1/2 max-w-[450px] flex-col items-center justify-center gap-4">
+      <div class="mb-6 text-2xl font-semibold">歡迎註冊 小十的家</div>
+      <t-form
+      ref="form" label-align="top" :required-mark="false" :data="formData" :rules="userFormRules"
+      class="!w-full !max-w-[450px] rounded-md border border-gray-200 bg-white !p-6"
+      @submit="signUp"
+    >
+        <t-form-item name="username">
+            <template #label>
+                <div class="text-lg">使用者名稱</div>
+              </template>
+              <t-input v-model="formData.username" type="text" :clearable="true" placeholder="請輸入 使用者名稱">
+                <template #prefix-icon>
+                    <User1Icon />
+                </template>
+              </t-input>
+        </t-form-item>
+
+        <t-form-item name="email">
+          <template #label>
+            <div class="text-lg">電子信箱</div>
+          </template>
+          <t-auto-complete v-model="formData.email" :options="emailOptions" :filterable="true">
+            <t-input v-model="formData.email" :clearable="true" placeholder="請輸入 電子信箱">
+              <template #prefix-icon>
+                <MailIcon />
+              </template>
+            </t-input>
+          </t-auto-complete>
+        </t-form-item>
+
+        <t-form-item name="password">
+          <template #label>
+            <div class="text-lg">密碼</div>
+          </template>
+          <t-input v-model="formData.password" type="password" :clearable="true" placeholder="請輸入 密碼">
+            <template #prefix-icon>
+              <LockOnIcon />
+            </template>
+          </t-input>
+        </t-form-item>
+
+        <t-form-item name="phone">
+          <template #label>
+            <div class="text-lg">手機號碼</div>
+          </template>
+            <t-input-group class="flex w-full flex-1 gap-2">
+                <t-select v-model="formData.phoneCountry" :clearable="true" placeholder="國家" class="!w-[30%]">
+                    <template #prefixIcon>
+                        <LocationIcon />
+                    </template>
+                    <t-option v-for="option in phoneCountryOptions" :key="option.value" :value="option.value" :label="option.label" />
+                </t-select>
+                <div class="flex w-[5%] items-center justify-center">
+                    -
+                </div>
+                <t-input v-model="formData.phoneNumber" type="tel" :clearable="true" placeholder="請輸入 手機號碼" class="!w-[65%]">
+                  <template #prefix-icon>
+                    <Call1Icon />
+                  </template>
+                </t-input>
+            </t-input-group>
+        </t-form-item>
+        
+        <t-form-item>
+          <t-button theme="primary" type="submit" :block="true">註冊帳號</t-button>
+        </t-form-item>
+      </t-form>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
+// import { MessagePlugin, type FormProps } from 'tdesign-vue-next'
+import type { FormProps } from 'tdesign-vue-next'
+import { MailIcon, LockOnIcon, User1Icon, Call1Icon, LocationIcon } from 'tdesign-icons-vue-next'
+import { userFormRules } from '~/scripts/formRules'
+import { phoneCountryOptions } from '~/scripts/formOptions'
 
+const formData: FormProps['data'] = reactive({
+  username: '',
+  email: '',
+  password: '',
+  phoneCountry: '',
+  phoneNumber: '',
+})
+
+const emailSuffix = ['@gmail.com', '@yahoo.com']
+const emailOptions = computed(() => {
+  const emailPrefix = formData.email.split('@')[0]
+  if (!emailPrefix) return []
+  return emailSuffix.map((suffix) => emailPrefix + suffix)
+})
+
+const signUp: FormProps['onSubmit'] = async () => {
+//   const res = await fetch('/api/signUp', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(formData),
+//   })
+//   const data: signUpResData = await res.json()
+//   if (data.error) {
+//     MessagePlugin.error(data.error)
+//   } else {
+//     MessagePlugin.success('註冊成功')
+//     // Redirect to login page
+//     $nuxt.$router.push('/login')
+//   }
+}
 </script>
