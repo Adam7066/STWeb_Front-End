@@ -11,11 +11,12 @@
             <template #label>
                 <div class="text-lg">使用者名稱</div>
               </template>
-              <t-input v-model="formData.username" type="text" :clearable="true" placeholder="請輸入 使用者名稱">
-                <template #prefix-icon>
-                    <User1Icon />
-                </template>
-              </t-input>
+                <t-input v-model="formData.username" type="text" :clearable="true" placeholder="請輸入 使用者名稱">
+                  <template #prefix-icon>
+                      <User1Icon />
+                  </template>
+                </t-input>
+
         </t-form-item>
 
         <t-form-item name="email">
@@ -29,6 +30,23 @@
               </template>
             </t-input>
           </t-auto-complete>
+        </t-form-item>
+
+        <t-form-item name="verifyCode">
+          <template #label>
+            <div class="text-lg">驗證碼</div>
+          </template>
+          <div class="flex w-full flex-row justify-center gap-2">
+            <t-input v-model="formData.password" type="text" :clearable="true" placeholder="請輸入 驗證碼">
+              <template #prefix-icon>
+                <VerifiedFilledIcon />
+              </template>
+            </t-input>
+            <t-button theme="primary" type="button" size="small" variant="base" class="!h-[32px] !w-1/5 !min-w-[72px]">
+              發送驗證碼
+            </t-button>
+          </div>
+
         </t-form-item>
 
         <t-form-item name="password">
@@ -63,6 +81,8 @@
                 </t-input>
             </t-input-group>
         </t-form-item>
+
+        
         
         <t-form-item>
           <t-button theme="primary" type="submit" :block="true">註冊帳號</t-button>
@@ -75,7 +95,7 @@
 <script setup lang="ts">
 // import { MessagePlugin, type FormProps } from 'tdesign-vue-next'
 import type { FormProps } from 'tdesign-vue-next'
-import { MailIcon, LockOnIcon, User1Icon, Call1Icon, LocationIcon } from 'tdesign-icons-vue-next'
+import { MailIcon, LockOnIcon, User1Icon, Call1Icon, LocationIcon, VerifiedFilledIcon } from 'tdesign-icons-vue-next'
 import { userFormRules } from '~/scripts/formRules'
 import { phoneCountryOptions } from '~/scripts/formOptions'
 
