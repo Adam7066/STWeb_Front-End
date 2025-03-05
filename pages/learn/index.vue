@@ -27,7 +27,9 @@
       <div class="min-w-60">
         <t-card>
           <div class="space-y-4 text-lg font-medium">
-            <div>當前閱讀人數：1,000</div>
+            <client-only>
+              <div>當前閱讀人數：{{ learnStore.total }}</div>
+            </client-only>
             <div>當前文章總數：{{ totalArticles }}</div>
           </div>
         </t-card>
@@ -46,6 +48,7 @@ definePageMeta({
 })
 
 const config = useRuntimeConfig()
+const learnStore = useLearn()
 const learnArticles = useState<Record<string, LearnCategory>>('learnArticles')
 
 const totalArticles = computed(() => {

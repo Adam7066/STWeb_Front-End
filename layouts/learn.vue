@@ -43,8 +43,12 @@
 import AsideLayout from './aside.vue'
 import type { MenuProps } from 'tdesign-vue-next'
 import type { LearnCategory } from '~/scripts/fetchInterface'
+import { useWebSocket } from '@vueuse/core'
+import { v4 as uuidv4 } from 'uuid'
 
 const route = useRoute()
+const config = useRuntimeConfig()
+const learnStore = useLearn()
 
 const menuValue = computed<MenuProps['value']>(() => {
   const curRoute = route.name?.toString() ?? ''
@@ -55,4 +59,28 @@ const menuValue = computed<MenuProps['value']>(() => {
 })
 
 const learnArticles = useState<Record<string, LearnCategory>>('learnArticles')
+
+
+if (!learnStore.userId) learnStore.setUserId(uuidv4())
+const { data, close } = useWebSocket(
+  `${config.public.backendApi.replace('http', 'ws')}/learn-ws?userId=${learnStore.userId}`,
+  {
+    immediate: true,
+    autoReconnect: {
+      retries: 3,
+      delay: 1000,
+      onFailed() {
+        console.error('WebSocket connection failed')
+      },
+    },
+  },
+)
+
+watch(data, (newData)=>{
+  learnStore.setTotal(JSON.parse(newData).total)
+})
+
+onUnmounted(() => {
+  close()
+})
 </script>
