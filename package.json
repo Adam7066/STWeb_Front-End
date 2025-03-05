@@ -49,6 +49,7 @@
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "tdesign-icons-vue-next": "^0.3.4",
-    "tdesign-vue-next": "^1.10.7"
+    "tdesign-vue-next": "^1.10.7",
+    "uuid": "^11.1.0"
   }
 }
