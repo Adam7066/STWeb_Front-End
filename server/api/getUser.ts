@@ -10,5 +10,13 @@ export default defineEventHandler(async (event: H3Event) => {
     headers: {
       Cookie: `aToken=${cookies.aToken}; rToken=${cookies.rToken}`,
     },
+    onResponseError({ response }) {
+      if (response.status === 401) {
+        throw createError({
+          statusCode: 401,
+          statusMessage: 'Unauthorized',
+        })
+      }
+    }
   })
 })
