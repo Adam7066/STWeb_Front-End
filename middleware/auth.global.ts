@@ -7,6 +7,19 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const { data } = await useFetch<boolean>('/api/isLoggedIn')
   isLoggedIn.value = data?.value ?? false
 
+  if (isLoggedIn.value) {
+    const { data, error } = await useFetch<GetUserRes>('/api/getUser')
+    if (error.value?.statusCode === 401) {
+      await useFetch('/api/deleteAuthToken')
+      isLoggedIn.value = false
+    }
+    if (data.value) {
+      userStore.setUsername(data.value.data.username)
+      userStore.setEmail(data.value.data.email)
+      userStore.setAvatar(data.value.data.avatar)
+    }
+  }
+
   if (!isLoggedIn.value) {
     userStore.init()
 
@@ -22,13 +35,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
     }
     if (goToLoginFlag) return navigateTo('/login')
   } else {
-    const { data } = await useFetch<GetUserRes>('/api/getUser')
-    if (data.value) {
-      userStore.setUsername(data.value.data.username)
-      userStore.setEmail(data.value.data.email)
-      userStore.setAvatar(data.value.data.avatar)
-    }
-
     if (to.path === '/login') return navigateTo('/')
     if (to.path.startsWith('/dashboard')) {
       const userRole = useState<string>('userRole', () => 'User')
