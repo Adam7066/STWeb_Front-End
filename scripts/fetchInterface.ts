@@ -22,6 +22,20 @@ export interface MemberData {
   urlBlog: string
 }
 
+export interface LCategory {
+  id: number
+  name: string
+  value: string
+}
+
+export interface LTopic {
+  id: number
+  name: string
+  value: string
+  icon: string
+  category_id: number
+}
+
 export interface LearnCategory {
   name: string
   topics: Record<string, LearnTopic>
@@ -48,6 +62,7 @@ export interface LearnLatest {
   url: string
 }
 
+// User
 export type GetUserRes = ApiRes<UserData>
 export type GetUsersRes = ApiRes<UserData[]>
 export type DeleteUserRes = ApiRes<string>
@@ -55,10 +70,20 @@ export type CreateUserRes = ApiRes<string>
 export type UpdateUserRes = ApiRes<string>
 export type GetUserRoleRes = ApiRes<string>
 
+// Member
 export type GetMembersRes = ApiRes<MemberData[]>
 export type DeleteMemberRes = ApiRes<string>
 export type CreateMemberRes = ApiRes<string>
 export type UpdateMemberRes = ApiRes<string>
 
+// Learn
 export type GetLearnArticlesRes = ApiRes<Record<string, LearnCategory>>
 export type GetLearnLatestRes = ApiRes<LearnLatest[]>
+export type GetLCategoriesRes = ApiRes<LCategory[]>
+export type UpdateLCategoryRes = ApiRes<string>
+export type DeleteLCategoryRes = ApiRes<string>
+export type CreateLCategoryRes = ApiRes<string>
+export type GetLTopicsRes = ApiRes<LTopic[]>
+export type UpdateLTopicRes = ApiRes<string>
+export type DeleteLTopicRes = ApiRes<string>
+export type CreateLTopicRes = ApiRes<string>

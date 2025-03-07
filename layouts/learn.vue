@@ -60,7 +60,6 @@ const menuValue = computed<MenuProps['value']>(() => {
 
 const learnArticles = useState<Record<string, LearnCategory>>('learnArticles')
 
-
 if (!learnStore.userId) learnStore.setUserId(uuidv4())
 const { data, close } = useWebSocket(
   `${config.public.backendApi.replace('http', 'ws')}/learn-ws?userId=${learnStore.userId}`,

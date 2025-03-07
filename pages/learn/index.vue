@@ -28,7 +28,7 @@
         <t-card>
           <div class="space-y-4 text-lg font-medium">
             <client-only>
-              <div>當前閱讀人數：{{ learnStore.total }}</div>
+              <div>在線閱讀人數：{{ learnStore.total }}</div>
             </client-only>
             <div>當前文章總數：{{ totalArticles }}</div>
           </div>
