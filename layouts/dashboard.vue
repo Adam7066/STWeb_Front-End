@@ -57,6 +57,13 @@ const menu = computed(() => [
     to: { path: '/dashboard/membermgmt' },
     visible: userRole.value !== 'User',
   },
+  {
+    value: 'learnmgmt',
+    name: '學習文章管理',
+    icon: 'article',
+    to: { path: '/dashboard/learnmgmt' },
+    visible: userRole.value !== 'User',
+  }
 ])
 
 const collapsed = ref(false)
