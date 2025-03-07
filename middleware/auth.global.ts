@@ -42,7 +42,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
       userRole.value = data?.value ?? 'User'
 
       if (userRole.value === 'User') {
-        const goToHomePath = ['/dashboard/usermgmt', '/dashboard/membermgmt']
+        const goToHomePath = [
+          '/dashboard/usermgmt',
+          '/dashboard/membermgmt',
+          '/dashboard/learnmgmt',
+        ]
         if (goToHomePath.includes(to.path)) return navigateTo('/')
       }
     }
