@@ -3,7 +3,7 @@
     <div class="my-14 flex w-1/2 max-w-[450px] flex-col items-center justify-center gap-4">
       <div class="mb-6 text-2xl font-semibold">歡迎註冊 小十的家</div>
       <t-form
-      ref="form" label-align="top" :required-mark="false" :data="formData" :rules="userFormRules"
+      ref="signUpForm" label-align="top" :required-mark="false" :data="formData" :rules="userFormRules"
       class="!w-full !max-w-[450px] rounded-md border border-gray-200 bg-white !p-6"
       @submit="signUp"
     >
@@ -37,12 +37,12 @@
             <div class="text-lg">驗證碼</div>
           </template>
           <div class="flex w-full flex-row justify-center gap-2">
-            <t-input v-model="formData.password" type="text" :clearable="true" placeholder="請輸入 驗證碼">
+            <t-input v-model="formData.verifyEmailCode" type="text" :clearable="true" placeholder="請輸入 驗證碼">
               <template #prefix-icon>
                 <VerifiedFilledIcon />
               </template>
             </t-input>
-            <t-button theme="primary" type="button" size="small" variant="base" class="!h-[32px] !w-1/5 !min-w-[72px]">
+            <t-button theme="primary" type="button" size="small" variant="base" class="!h-[32px] !w-1/5 !min-w-[72px]" @click="sendVerifyCode(formData.email)">
               發送驗證碼
             </t-button>
           </div>
@@ -82,8 +82,6 @@
             </t-input-group>
         </t-form-item>
 
-        
-        
         <t-form-item>
           <t-button theme="primary" type="submit" :block="true">註冊帳號</t-button>
         </t-form-item>
@@ -93,15 +91,17 @@
 </template>
 
 <script setup lang="ts">
-// import { MessagePlugin, type FormProps } from 'tdesign-vue-next'
-import type { FormProps } from 'tdesign-vue-next'
+import { MessagePlugin, type FormProps } from 'tdesign-vue-next'
 import { MailIcon, LockOnIcon, User1Icon, Call1Icon, LocationIcon, VerifiedFilledIcon } from 'tdesign-icons-vue-next'
 import { userFormRules } from '~/scripts/formRules'
 import { phoneCountryOptions } from '~/scripts/formOptions'
 
+const config = useRuntimeConfig()
+
 const formData: FormProps['data'] = reactive({
   username: '',
   email: '',
+  verifyEmailCode: '',
   password: '',
   phoneCountry: '',
   phoneNumber: '',
@@ -114,21 +114,47 @@ const emailOptions = computed(() => {
   return emailSuffix.map((suffix) => emailPrefix + suffix)
 })
 
-const signUp: FormProps['onSubmit'] = async () => {
-//   const res = await fetch('/api/signUp', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(formData),
-//   })
-//   const data: signUpResData = await res.json()
-//   if (data.error) {
-//     MessagePlugin.error(data.error)
-//   } else {
-//     MessagePlugin.success('註冊成功')
-//     // Redirect to login page
-//     $nuxt.$router.push('/login')
-//   }
+interface sendVerifyCodeResData  {
+  error: string
+  data: string
+}
+
+const sendVerifyCode = async (email: string) => {
+  if (!email) {
+    await MessagePlugin.error('請輸入電子信箱')
+    return
+  }
+  const res = await $fetch<sendVerifyCodeResData>(config.public.backendApi + '/verify-email', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  })
+  if(res.error) {
+    await MessagePlugin.error(res.error)
+  } else {
+    await MessagePlugin.success('驗證碼已發送至您的電子信箱')
+  }
+}
+
+interface RegisResData {
+  error: string
+  data: string
+}
+
+const signUp: FormProps['onSubmit'] = async ({validateResult, firstError, e}) => {
+  if (e) e.preventDefault()
+
+  if (validateResult === true) {
+    const res = await $fetch<RegisResData>(config.public.backendApi + '/register', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    })
+    if (res.error) await MessagePlugin.error(res.error)
+    else {
+      await MessagePlugin.success('註冊成功, 回到登入頁面')
+      await navigateTo('/login', { replace: true })
+    }
+  } else if (firstError) {
+    await MessagePlugin.error(firstError)
+  }
 }
 </script>
