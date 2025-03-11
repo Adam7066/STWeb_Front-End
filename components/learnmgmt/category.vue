@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between">
     <div class="mb-4 text-xl font-medium">類別 Category</div>
-    <t-button variant="outline" theme="success" @click="showCreateDialog">新增類別</t-button>
+    <t-button variant="outline" theme="success" @click="createVisible=true">新增類別</t-button>
     <t-dialog v-model:visible="createVisible" header="新增類別" width="550px">
       <template #cancelBtn />
       <template #confirmBtn />
@@ -153,10 +153,6 @@ const initCreateFormData = () => {
   Object.keys(createFormData).forEach((key) => {
     createFormData[key] = ''
   })
-}
-const showCreateDialog = () => {
-  initCreateFormData()
-  createVisible.value = true
 }
 const createCategory: FormProps['onSubmit'] = async ({ validateResult, firstError, e }) => {
   if (e) e.preventDefault()
