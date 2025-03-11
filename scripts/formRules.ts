@@ -43,3 +43,8 @@ export const learnTopicFormRules: FormProps['rules'] = {
   icon: [{ required: true, message: '此項必填', type: 'error', trigger: 'blur' }],
   category_id: [{ required: true, message: '此項必填', type: 'error', trigger: 'blur' }],
 }
+
+export const learnArticleFormRules: FormProps['rules'] = {
+  title: [{ required: true, message: '此項必填', type: 'error', trigger: 'blur' }],
+  topicId: [{ required: true, message: '此項必填', type: 'error', trigger: 'blur' }],
+}

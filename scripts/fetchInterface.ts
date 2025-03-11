@@ -36,6 +36,14 @@ export interface LTopic {
   category_id: number
 }
 
+export interface LArticle {
+  id: number
+  title: number
+  filename: string
+  topic_id: number
+  author_id: number
+}
+
 export interface LearnCategory {
   name: string
   topics: Record<string, LearnTopic>
@@ -79,11 +87,18 @@ export type UpdateMemberRes = ApiRes<string>
 // Learn
 export type GetLearnArticlesRes = ApiRes<Record<string, LearnCategory>>
 export type GetLearnLatestRes = ApiRes<LearnLatest[]>
+
 export type GetLCategoriesRes = ApiRes<LCategory[]>
 export type UpdateLCategoryRes = ApiRes<string>
 export type DeleteLCategoryRes = ApiRes<string>
 export type CreateLCategoryRes = ApiRes<string>
+
 export type GetLTopicsRes = ApiRes<LTopic[]>
 export type UpdateLTopicRes = ApiRes<string>
 export type DeleteLTopicRes = ApiRes<string>
 export type CreateLTopicRes = ApiRes<string>
+
+export type GetLArticlesRes = ApiRes<LArticle[]>
+export type UpdateLArticleRes = ApiRes<string>
+export type DeleteLArticleRes = ApiRes<string>
+export type CreateLArticleRes = ApiRes<string>
