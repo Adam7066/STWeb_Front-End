@@ -25,7 +25,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
     if (to.path === '/') return
 
-    const noLoginRequiredPath = ['/about', '/learn', '/tools', '/login', '/signUp', '/resetPassword']
+    const noLoginRequiredPath = ['/about', '/learn', '/tools', '/login', '/signup', '/reset-pwd']
     let goToLoginFlag = true
     for (const path of noLoginRequiredPath) {
       if (to.path.startsWith(path)) {

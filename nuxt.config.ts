@@ -87,6 +87,4 @@ export default defineNuxtConfig({
       minioApi: process.env.MINIO_API,
     },
   },
-
-  compatibilityDate: '2025-03-03',
 })
