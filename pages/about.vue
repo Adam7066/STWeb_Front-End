@@ -1,20 +1,8 @@
 <template>
-  <div class="my-14 flex flex-col items-center justify-center space-y-10">
-    <div class="flex w-3/5 flex-col lg:flex-row">
-      <div class="flex flex-col items-center lg:mb-0">
-        <div class="w-36">
-          <div class="text-3xl text-red-500">About us</div>
-          <div class="mt-4 text-3xl font-medium">團隊簡介</div>
-        </div>
-      </div>
-
-      <div class="mx-2 hidden lg:block">
-        <t-divider layout="vertical" class="!h-full !border-2" />
-      </div>
-      <div class="lg:hidden">
-        <t-divider class="!w-full !border-2" />
-      </div>
-
+  <div class="my-8 flex flex-col items-center justify-center lg:my-14">
+    <div class="mx-4 max-w-[1440px] lg:w-3/4">
+      <div class="text-center text-2xl font-medium lg:text-3xl">團隊簡介</div>
+      <hr class="my-2 border-2 lg:my-4">
       <div class="py-4 text-base">
         <p>
           憑藉著一股對於科技、教育的熱情，我們幾個志同道合的夥伴組成了這個團隊，
@@ -35,10 +23,8 @@
           展望未來，【 小十科技 】在教育平台中，不一定要成為第一，但一定能夠越做越好!!
         </div>
       </div>
-    </div>
 
-    <div class="w-4/5">
-      <div class="mb-4 text-center text-3xl font-medium">團隊成員</div>
+      <div class="mb-4 mt-8 text-center text-2xl font-medium lg:text-3xl">團隊成員</div>
       <t-row :gutter="30" class="flex" justify="space-around">
         <t-col v-for="member in members" :key="member.name" :xs="12" :sm="6" :md="4">
           <div class="my-4">
@@ -74,23 +60,11 @@
 
 <script setup lang="ts">
 import { LogoGithubFilledIcon, PenFilledIcon } from 'tdesign-icons-vue-next'
+import type { GetMembersRes, MemberData } from '~/scripts/fetchInterface'
 
 const config = useRuntimeConfig()
 
-interface MemberData {
-  avatar: string
-  name: string
-  description: string
-  urlGithub: string
-  urlBlog: string
-}
-
-interface MembersData {
-  error: string
-  data: MemberData[]
-}
-
-const { data } = await useFetch<MembersData>(config.public.backendApi + '/members', {
+const { data } = await useFetch<GetMembersRes>(config.public.backendApi + '/members', {
   method: 'GET',
 })
 

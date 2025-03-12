@@ -1,5 +1,7 @@
 <template>
   <div class="text-center">
-    Copyright &copy; 2020-{{ new Date().getFullYear() }} 小十科技. All Rights Reserved.
+    Copyright &copy; {{ new Date().getFullYear() }} 小十科技.
+    <br class="block lg:hidden" >
+    All Rights Reserved.
   </div>
 </template>
