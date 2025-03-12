@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@tdesign-vue-next/nuxt',
     'nuxt-lodash',
+    'nuxt-monaco-editor',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@vueuse/nuxt',
@@ -83,6 +84,7 @@ export default defineNuxtConfig({
     public: {
       shortUrlApi: process.env.SHORT_URL_API,
       backendApi: process.env.BACKEND_API,
+      minioApi: process.env.MINIO_API,
     },
   },
 

@@ -1,7 +1,7 @@
 <template>
   <t-layout class="min-h-screen">
     <t-header class="fixed left-0 top-0 z-50 w-full">
-      <AppHeader :key="$route.name?.toString()" />
+      <AppHeader />
     </t-header>
     <t-content class="bg-[#f5f5fa] pt-14">
       <slot />
