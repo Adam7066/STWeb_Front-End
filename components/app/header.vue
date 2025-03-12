@@ -87,14 +87,12 @@ import { BulletpointIcon } from 'tdesign-icons-vue-next'
 const userStore = useUser()
 const isLoggedIn = useState<boolean>('isLoggedIn')
 
-const headMenuVal = ref<MenuProps['value']>('')
+const route = useRoute()
+const headMenuVal = computed<MenuProps['value']>(
+  () => (route.name?.toString() ?? '').split('-')[0],
+)
 
-onMounted(() => {
-  const curRoute = useRoute().name?.toString() ?? ''
-  headMenuVal.value = curRoute.split('-')[0]
-})
-
-const menu = [
+const menu = computed(() => [
   [ // Left
     { value: 'index', to: '/', content: '首頁', icon: 'home', visible: true },
     { value: 'about', to: '/about', content: '關於', icon: 'usergroup', visible: true },
@@ -111,11 +109,13 @@ const menu = [
   [ // Avatar Group 1
     { value: 'logout', to: '/logout', content: '登出', icon: 'logout', visible: isLoggedIn.value },
   ],
-]
-const avatarMenu = menu.slice(2)
-  .map(group => group.filter(item => item.visible))
-const mobileMenu = menu.map(group => group.filter(item => item.visible))
-  .filter(group => group.length > 0)
+])
+const avatarMenu = computed(() =>
+  menu.value.slice(2).map(group => group.filter(item => item.visible)),
+)
+const mobileMenu = computed(() =>
+  menu.value.map(group => group.filter(item => item.visible)).filter(group => group.length > 0),
+)
 
 const goTo = (to: string) => {
   if (to === '/logout') window.location.href = to

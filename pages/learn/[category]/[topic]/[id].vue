@@ -63,12 +63,13 @@ definePageMeta({
   layout: 'learn',
 })
 
+const config = useRuntimeConfig()
 const route = useRoute()
 const routeCategory = route.params.category as string
 const routeTopic = route.params.topic as string
 const routeId = route.params.id as string
 
-const { data: mdRaw } = await useFetch<string>('http://localhost:9000/stweb-learn-article/' + routeId + '.md', {
+const { data: mdRaw } = await useFetch<string>(config.public.minioApi + '/stweb-learn-article/' + routeId + '.md', {
   method: 'GET',
 })
 const { data: ast } = await useAsyncData('markdown', () => parseMarkdown(mdRaw?.value ?? ''))

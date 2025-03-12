@@ -1,7 +1,7 @@
 <template>
   <AsideLayout>
     <template #aside>
-      <t-menu :value="menuValue" :collapsed="collapsed" @change="menuOnChange">
+      <t-menu :value="menuValue" :collapsed="collapsed">
         <template v-for="item in menu" :key="item.value">
           <t-menu-item v-if="item.visible" :value="item.value" class="text-lg !text-black" :to="item.to">
             <template #icon>
@@ -32,19 +32,16 @@ import type { ButtonProps, MenuProps } from 'tdesign-vue-next'
 
 const userRole = useState<string>('userRole')
 
-const menuValue = ref<MenuProps['value']>('dashboard')
-
-onMounted(() => {
+const menuValue = computed<MenuProps['value']>(() => {
   const curRoute = useRoute().name?.toString() ?? ''
   if (curRoute.startsWith('dashboard')) {
     const val = curRoute.split('-')
-    menuValue.value = val.length > 1 ? val[1] : val[0]
-  } else {
-    menuValue.value = 'dashboard'
+    return val.length > 1 ? val[1] : val[0]
   }
+  return 'dashboard'
 })
 
-const menu = [
+const menu = computed(() => [
   { value: 'dashboard', name: '儀表板', icon: 'dashboard', to: { path: '/dashboard' }, visible: true },
   {
     value: 'usermgmt',
@@ -60,10 +57,14 @@ const menu = [
     to: { path: '/dashboard/membermgmt' },
     visible: userRole.value !== 'User',
   },
-]
-const menuOnChange: MenuProps['onChange'] = (active) => {
-  menuValue.value = active
-}
+  {
+    value: 'learnmgmt',
+    name: '學習文章管理',
+    icon: 'article',
+    to: { path: '/dashboard/learnmgmt' },
+    visible: userRole.value !== 'User',
+  }
+])
 
 const collapsed = ref(false)
 const collapsedIconName = computed(() => (collapsed.value ? 'chevron-right' : 'chevron-left'))

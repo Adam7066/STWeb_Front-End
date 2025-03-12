@@ -1,7 +1,7 @@
 <template>
   <t-layout class="min-h-screen">
     <t-header>
-      <AppHeader :key="$route.name?.toString()" />
+      <AppHeader />
     </t-header>
     <t-layout class="h-[calc(100vh-56px)] pt-14">
       <t-aside class="!w-fit border-r-2 border-t-2">
