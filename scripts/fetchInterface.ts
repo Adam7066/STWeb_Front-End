@@ -70,6 +70,17 @@ export interface LearnLatest {
   url: string
 }
 
+interface LoginData {
+  username: string
+  email: string
+  avatar: string
+}
+
+// Auth
+export type LoginRes = ApiRes<LoginData>
+export type SendVerifyCodeRes = ApiRes<string>
+export type  RegisRes = ApiRes<string>
+
 // User
 export type GetUserRes = ApiRes<UserData>
 export type GetUsersRes = ApiRes<UserData[]>
