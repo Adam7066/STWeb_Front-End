@@ -1,7 +1,7 @@
 <template>
   <AsideLayout>
     <template #aside>
-      <t-menu :value="menuValue" :expand-mutex="true">
+      <t-menu :value="menuValue" :expand-mutex="true" @change="showMobileAsideDrawer=false">
         <t-menu-item class="text-xl font-medium !text-black" value="learn" :to="{path: '/learn'}">
           最新文章
         </t-menu-item>
@@ -49,6 +49,7 @@ import { v4 as uuidv4 } from 'uuid'
 const route = useRoute()
 const config = useRuntimeConfig()
 const learnStore = useLearn()
+const showMobileAsideDrawer = useState('showMobileAsideDrawer')
 
 const menuValue = computed<MenuProps['value']>(() => {
   const curRoute = route.name?.toString() ?? ''

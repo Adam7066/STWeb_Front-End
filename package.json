@@ -21,6 +21,7 @@
     "@nuxt/eslint": "0.7.4",
     "@nuxt/icon": "^1.10.3",
     "@nuxt/image": "1.8.1",
+    "@nuxtjs/device": "3.2.4",
     "@nuxtjs/sitemap": "^7.0.1",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@stylistic/eslint-plugin": "^2.12.1",
