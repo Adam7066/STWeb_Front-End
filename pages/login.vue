@@ -45,7 +45,7 @@
 
           <div class="flex flex-1 justify-end">
             <t-button theme="primary" type="button" variant="text">
-              <NuxtLink to="/reset-pwd" class="text-blue-500">忘記密碼？</NuxtLink>
+              <NuxtLink to="/forgot-pwd" class="text-blue-500">忘記密碼？</NuxtLink>
             </t-button>
           </div>
         </div>
