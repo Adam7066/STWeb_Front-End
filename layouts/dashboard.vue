@@ -1,7 +1,7 @@
 <template>
   <AsideLayout>
     <template #aside>
-      <t-menu :value="menuValue" :collapsed="collapsed">
+      <t-menu :value="menuValue" :collapsed="collapsed" @change="showMobileAsideDrawer=false">
         <template v-for="item in menu" :key="item.value">
           <t-menu-item v-if="item.visible" :value="item.value" class="text-lg !text-black" :to="item.to">
             <template #icon>
@@ -31,6 +31,7 @@ import AsideLayout from './aside.vue'
 import type { ButtonProps, MenuProps } from 'tdesign-vue-next'
 
 const userRole = useState<string>('userRole')
+const showMobileAsideDrawer = useState('showMobileAsideDrawer')
 
 const menuValue = computed<MenuProps['value']>(() => {
   const curRoute = useRoute().name?.toString() ?? ''
