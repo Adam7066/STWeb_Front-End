@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full p-10">
-    <div v-if="ast" class="flex justify-between space-x-10">
+  <div class="w-full p-4 lg:p-8">
+    <div v-if="ast" class="flex justify-between space-x-8">
       <div class="flex flex-1 justify-center">
         <t-card class="w-full max-w-6xl">
           <template v-if="article" #header>
@@ -22,7 +22,7 @@
         </t-card>
       </div>
 
-      <div class="w-72">
+      <div class="hidden w-72 xl:block">
         <t-card v-if="ast.toc" :header-bordered="true" class="!fixed max-h-[400px] w-72 overflow-auto">
           <template #header>
             <div class="text-xl font-semibold"># Table of contents</div>

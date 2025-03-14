@@ -1,8 +1,8 @@
 <template>
-  <div class="mx-auto my-14 w-5/6">
-    <div class="flex w-full justify-between space-x-10">
-      <t-space direction="vertical" class="flex-1">
-        <div class="text-3xl font-semibold">最新文章</div>
+  <div class="mx-4 my-8 lg:mx-auto lg:my-14 lg:w-5/6">
+    <div class="flex w-full flex-col justify-between lg:flex-row lg:space-x-10">
+      <t-space direction="vertical" class="order-2 flex-1 lg:order-none">
+        <div class="text-center text-2xl font-semibold lg:text-start lg:text-3xl">最新文章</div>
 
         <template v-for="i in learnLatest" :key="i.url">
           <t-card :hover-shadow="true" class="shadow-md hover:cursor-pointer" @click="goToArticle(i.url)">
@@ -24,7 +24,7 @@
         </template>
       </t-space>
 
-      <div class="min-w-60">
+      <div class="order-1 mb-8 min-w-60 lg:order-none lg:mb-0">
         <t-card>
           <div class="space-y-4 text-lg font-medium">
             <client-only>
