@@ -56,6 +56,7 @@
           :stripe="true"
           :bordered="true"
           :hover="true"
+          :pagination="pagination"
           table-layout="auto"
         >
           <template #avatar="{ row }">
@@ -165,6 +166,14 @@ const tableColumns = ref<TableProps['columns']>([
   { colKey: 'role', title: '身份別' },
   { colKey: 'operation', title: '操作' },
 ])
+
+const pagination = computed(() => {
+  return {
+    defaultCurrent: 1,
+    defaultPageSize: 20,
+    total: tableData.value.length,
+  }
+})
 
 const deleteUser = async (id: number) => {
   const resp = await $fetch<DeleteUserRes>(config.public.backendApi + '/user/' + id, {
