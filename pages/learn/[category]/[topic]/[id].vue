@@ -9,7 +9,7 @@
               <t-space class="ml-4 text-base">
                 <t-tooltip content="最後編輯時間">
                   <CalendarEditIcon class="mr-2 !size-4" />
-                  {{ new Date(article.updated_at).toLocaleDateString() }}
+                  {{ new Date(article.updatedAt).toLocaleDateString() }}
                 </t-tooltip>
                 <t-tooltip content="作者">
                   <Icon name="my-icon:author" class="mr-2 size-4" />

@@ -7,12 +7,12 @@
         <template v-for="i in learnLatest" :key="i.url">
           <t-card :hover-shadow="true" class="shadow-md hover:cursor-pointer" @click="goToArticle(i.url)">
             <t-space direction="vertical" size="small">
-              <t-tag theme="primary" variant="light" class="!text-sm !font-medium">{{ i.topic_name }}</t-tag>
+              <t-tag theme="primary" variant="light" class="!text-sm !font-medium">{{ i.topicName }}</t-tag>
               <div class="text-xl font-medium">{{ i.title }}</div>
               <t-space class="text-sm">
                 <t-tooltip content="最後編輯時間">
                   <CalendarEditIcon class="mr-2 !size-4" />
-                  {{ new Date(i.updated_at).toLocaleDateString() }}
+                  {{ new Date(i.updatedAt).toLocaleDateString() }}
                 </t-tooltip>
                 <t-tooltip content="作者">
                   <Icon name="my-icon:author" class="mr-2 size-4" />

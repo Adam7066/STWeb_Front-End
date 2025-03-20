@@ -34,7 +34,7 @@
         <!-- Update -->
         <t-button
           variant="text" theme="primary" shape="circle"
-          @click="editArticle(row.id, row.filename, row.title, row.topic_id)"
+          @click="editArticle(row.id, row.filename, row.title, row.topicId)"
         >
           <template #icon>
             <Edit1Icon />
@@ -55,7 +55,12 @@
 </template>
 
 <script setup lang="ts">
-import type { LArticle, GetLArticlesRes, DeleteLArticleRes, CreateLTopicRes } from '~/scripts/fetchInterface'
+import type {
+  LArticle,
+  GetLArticlesRes,
+  DeleteLArticleRes,
+  CreateLArticleRes,
+} from '~/scripts/fetchInterface'
 import type { TableProps, FormProps } from 'tdesign-vue-next'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { DeleteIcon, Edit1Icon } from 'tdesign-icons-vue-next'
@@ -76,8 +81,8 @@ const articleTableColumns = ref<TableProps['columns']>([
   { colKey: 'id', title: 'ID' },
   { colKey: 'title', title: 'Title' },
   { colKey: 'filename', title: 'Filename' },
-  { colKey: 'topic_id', title: 'Topic ID' },
-  { colKey: 'author_id', title: 'Author ID' },
+  { colKey: 'topicId', title: 'Topic ID' },
+  { colKey: 'authorId', title: 'Author ID' },
   { colKey: 'operation', title: '操作' },
 ])
 const pagination = computed(() => {
@@ -101,7 +106,7 @@ const initCreateFormData = () => {
 const createArticle: FormProps['onSubmit'] = async ({ validateResult, firstError, e }) => {
   if (e) e.preventDefault()
   if (validateResult === true) {
-    const resp = await $fetch<CreateLTopicRes>(config.public.backendApi + '/learn/article', {
+    const resp = await $fetch<CreateLArticleRes>(config.public.backendApi + '/learn/article', {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(createFormData),
