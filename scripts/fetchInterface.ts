@@ -33,15 +33,15 @@ export interface LTopic {
   name: string
   value: string
   icon: string
-  category_id: number
+  categoryId: number
 }
 
 export interface LArticle {
   id: number
   title: number
   filename: string
-  topic_id: number
-  author_id: number
+  topicId: number
+  authorId: number
 }
 
 export interface LearnCategory {
@@ -50,8 +50,8 @@ export interface LearnCategory {
 }
 
 export interface LearnTopic {
-  topic_name: string
-  topic_icon: string
+  topicName: string
+  topicIcon: string
   articles: LearnArticle[]
 }
 
@@ -59,14 +59,14 @@ export interface LearnArticle {
   title: string
   filename: string
   author: string
-  updated_at: Date
+  updatedAt: Date
 }
 
 export interface LearnLatest {
-  topic_name: string
+  topicName: string
   title: string
   author: string
-  updated_at: Date
+  updatedAt: Date
   url: string
 }
 
