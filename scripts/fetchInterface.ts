@@ -59,15 +59,25 @@ export interface LearnArticle {
   title: string
   filename: string
   author: string
-  updatedAt: Date
+  updatedAt: string
 }
 
 export interface LearnLatest {
   topicName: string
   title: string
   author: string
-  updatedAt: Date
+  updatedAt: string
   url: string
+}
+
+export interface LearnComment {
+  userAvatar: string
+  username: string
+  floorNo: number
+  replyNo: number
+  content: string
+  createdAt: string
+  updatedAt: string
 }
 
 interface LoginData {
@@ -113,3 +123,7 @@ export type GetLArticlesRes = ApiRes<LArticle[]>
 export type UpdateLArticleRes = ApiRes<string>
 export type DeleteLArticleRes = ApiRes<string>
 export type CreateLArticleRes = ApiRes<string>
+
+export type GetLearnComments = ApiRes<LearnComment[]>
+export type CreateLearnCommentFloor = ApiRes<string>
+export type CreateLearnCommentReply = ApiRes<string>
