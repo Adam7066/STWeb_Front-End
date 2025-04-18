@@ -15,8 +15,8 @@
         <t-form-item name="icon" label="Icon">
           <t-input v-model="createFormData.icon" :clearable="true" placeholder="請輸入 Icon" />
         </t-form-item>
-        <t-form-item name="category_id" label="Category ID">
-          <t-input-number v-model="createFormData.category_id" theme="normal" />
+        <t-form-item name="categoryId" label="Category ID">
+          <t-input-number v-model="createFormData.categoryId" theme="normal" />
         </t-form-item>
         <t-form-item class="flex justify-end">
           <t-button theme="primary" type="submit">新增</t-button>
@@ -56,8 +56,8 @@
             <t-form-item name="icon" label="Icon">
               <t-input v-model="updateFormData.icon" :clearable="true" placeholder="請輸入 Icon" />
             </t-form-item>
-            <t-form-item name="category_id" label="Category ID">
-              <t-input-number v-model="updateFormData.category_id" theme="normal" />
+            <t-form-item name="categoryId" label="Category ID">
+              <t-input-number v-model="updateFormData.categoryId" theme="normal" />
             </t-form-item>
             <t-form-item class="flex justify-end">
               <t-button theme="primary" type="submit">更新</t-button>
@@ -100,7 +100,7 @@ const topicTableColumns = ref<TableProps['columns']>([
   { colKey: 'name', title: 'Name' },
   { colKey: 'value', title: 'Value' },
   { colKey: 'icon', title: 'Icon' },
-  { colKey: 'category_id', title: 'Category ID' },
+  { colKey: 'categoryId', title: 'Category ID' },
   { colKey: 'operation', title: '操作' },
 ])
 const pagination = computed<TableProps['pagination']>(() => {
@@ -127,7 +127,7 @@ const updateFormData: FormProps['data'] = reactive({
   name: '',
   value: '',
   icon: '',
-  category_id: 0,
+  categoryId: 0,
 })
 const showUpdateDialog = (row: LTopic) => {
   Object.keys(updateFormData).forEach((key) => {
@@ -160,13 +160,13 @@ const createFormData: FormProps['data'] = reactive({
   name: '',
   value: '',
   icon: '',
-  category_id: 0,
+  categoryId: 0,
 })
 const initCreateFormData = () => {
   createFormData.name = ''
   createFormData.value = ''
   createFormData.icon = ''
-  createFormData.category_id = 0
+  createFormData.categoryId = 0
 }
 const createTopic: FormProps['onSubmit'] = async ({ validateResult, firstError, e }) => {
   if (e) e.preventDefault()
