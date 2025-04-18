@@ -14,10 +14,10 @@
           </template>
           <t-submenu v-for="(topic, topicKey) in category.topics" :key="topicKey" :value="topicKey">
             <template #icon>
-              <Icon :name="topic.topic_icon" class="size-5" />
+              <Icon :name="topic.topicIcon" class="size-5" />
             </template>
             <template #title>
-              <div class="ml-2 text-lg text-black">{{ topic.topic_name }}</div>
+              <div class="ml-2 text-lg text-black">{{ topic.topicName }}</div>
             </template>
 
             <t-menu-item
