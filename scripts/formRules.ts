@@ -4,7 +4,7 @@ const passwordValidator: CustomValidator = (val) => {
   const hasUppercase = /[A-Z]/.test(val)
   const hasLowercase = /[a-z]/.test(val)
   const hasNumber = /\d/.test(val)
-  const hasSpecialChar = /[!@#$%^&*()-_,.?":{}|<>]/.test(val)
+  const hasSpecialChar = /[!@#$%^&*()\-_,.?":{}|<>]/.test(val)
   return hasUppercase && hasLowercase && hasNumber && hasSpecialChar
 }
 

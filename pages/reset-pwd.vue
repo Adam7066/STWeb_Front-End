@@ -21,11 +21,6 @@
                 <t-form-item>
                     <t-button theme="primary" type="submit" :block="true">送出</t-button>
                 </t-form-item>
-
-                <t-form-item>
-                    {{ formData.password }}
-                    {{ token }}
-                </t-form-item>
             </t-form>
         </div>
     </div>
